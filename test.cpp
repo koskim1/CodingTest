@@ -1,32 +1,43 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int main() {
-	ios::sync_with_stdio(0);
-	cin.tie(0);
-	
-	/*
-	
-	 memcpy()
-	 
-	 void * memcpy ( void * destination, const void * source, size_t num);
-	 
-	 memcpy()는 어떤 변수의 메모리에 있는 값들을 다른 변수의 " 특정 메모리값 " 으로
-	 복사할 때 사용합니다. Array를 깊은 복사할 때 쓰임
+int main(void) {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
 
-	 얕은복사 - 메모리 주소값을 복사한 것이라 복사한 배열을 수정하면 원본 배열이 수정되는 복사방법
-	 깊은복사 - 새로운 메모리 공간을 확보해 완전히 복사해 배열을 수정하면 원본 배열은 수정되지 않는 복사방법
+    /*
+    memcpy()와 똑같은 동작을 하는 함수임. vector와 Array 모두 쓰일 수 있음
+    copy (InputIterator first, InputIterator last, OutputIterator result)
 
-	 하지만 memcpy()는 vector에서는 깊은복사가 안됨!!
-	 그래서 사실상 Array에서만 동작한다는것을 유의해야함
+    만약 vector v를 ret에다가 옮기고 싶다면 다음과 같이 하면 됨.
+    v : 복사당하는 vector / ret : 복사하는 vector
+    copy(v.begin(), v.end(), ret.begin());
 
-	*/
-	int v[3] = { 1, 2, 3 };
-	int ret[3];
-	memcpy(ret, v, sizeof(v));
-	cout << ret[1] << "\n";
-	ret[1] = 100;
-	cout << ret[1] << "\n";
-	cout << v[1] << "\n";
-	return 0;
+    */
+    //------------------------------------------------------------------------------------------
+    // vector<> 버전
+    //vector<int> v{ 1, 2, 3 };
+    //vector<int> ret(3);
+    //copy(v.begin(), v.end(), ret.begin());
+    //cout << ret[1] << "\n";
+    //ret[1] = 100;
+    //cout << ret[1] << "\n";
+    //cout << v[1] << "\n";
+    // vector에서는 깊은복사가 돼서 ret을 수정하더라도 v에는 아무런 영향을 안줌
+
+
+    //------------------------------------------------------------------------------------------
+    // array() 버전 ( 깊은 복사 )
+    int v[3] = { 1,2,3 };
+    int ret[3];
+    copy(v, v + 3, ret);
+    cout << ret[1] << "\n";
+    ret[1] = 100;
+    cout << ret[1] << "\n";
+    cout << v[1] << "\n";
+
+    /*
+    이로써 copy()는 vector든 Array든 모두 깊은복사 인것을 알 수 있고
+    memcpy()는 Array에서만 깊은복사 vector에서는 얕은복사(원본도 수정됨)가 이루어진다.
+    */
 }

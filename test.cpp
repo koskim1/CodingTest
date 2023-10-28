@@ -1,26 +1,28 @@
 #include <bits/stdc++.h>
-#include <unordered_map>
 using namespace std;
-
-unordered_map<string, int> umap;
 
 
 int main(void) {
     ios::sync_with_stdio(0);
     cin.tie(0);
 
-    umap["bcd"] = 1;
-    umap["aaa"] = 1;
-    umap["aba"] = 1;
-    for (auto it : umap) {
-        cout << it.first << " : " << it.second << "\n";
-    }
+    set<pair<string, int>> st;
 
+    st.insert({ "test", 1 });
+    st.insert({ "test", 1 });
+    st.insert({ "test", 1 });
+    st.insert({ "test", 1 });
+    cout << st.size() << "\n";
+    set<int> st2;
+    st2.insert(2);
+    st2.insert(1);
+    st2.insert(2);
+    for (auto it : st2) {
+        cout << it << "\n";
+    }
 }
 /*
-    Áßº¹Çã¿ë ¾ÈµÊ
-    Á¤·ÄÀÌ ¾ÈµÊ.
-    aba : 1
-    aaa : 1
-    bcd : 1
+1
+1
+2
 */

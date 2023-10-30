@@ -1,28 +1,18 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+multiset<int> s;
 
 int main(void) {
     ios::sync_with_stdio(0);
     cin.tie(0);
 
-    set<pair<string, int>> st;
-
-    st.insert({ "test", 1 });
-    st.insert({ "test", 1 });
-    st.insert({ "test", 1 });
-    st.insert({ "test", 1 });
-    cout << st.size() << "\n";
-    set<int> st2;
-    st2.insert(2);
-    st2.insert(1);
-    st2.insert(2);
-    for (auto it : st2) {
-        cout << it << "\n";
+    for (int i = 5; i >= 1; i--) {
+        s.insert(i);
+        s.insert(i);
     }
+
+    for (int it : s) cout << it << " ";
+    cout << "\n";
+
 }
-/*
-1
-1
-2
-*/

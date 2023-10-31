@@ -1,16 +1,28 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-queue<int> q;
-
 int main(void) {
     ios::sync_with_stdio(0);
     cin.tie(0);
 
-    for (int i = 1; i <= 10; i++) q.push(i);
-    while (q.size()) {
-        cout << q.front() << ' ';
-        q.pop();
-    }
-    cout << '\n';
+    deque<int> dq;
+    dq.push_front(1);
+    dq.push_back(2);
+    dq.push_back(3);
+    cout << dq.front() << "\n";
+    cout << dq.back() << "\n";
+    cout << dq.size() << "\n";
+    dq.pop_back();
+    dq.pop_front();
+    cout << dq.size() << "\n";
+    cout << dq.front() << "\n";
+    cout << dq.back() << "\n";
 }
+/*
+1
+3
+3
+1
+2
+2
+*/

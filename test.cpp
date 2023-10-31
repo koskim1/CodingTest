@@ -1,30 +1,16 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-stack<string> stk;
+queue<int> q;
 
 int main(void) {
     ios::sync_with_stdio(0);
     cin.tie(0);
 
-    stk.push("엄");
-    stk.push("준");
-    stk.push("식");
-    stk.push("화");
-    stk.push("이");
-    stk.push("팅");
-    
-    while (stk.size()) {
-        cout << stk.top() << "\n";
-        stk.pop();
+    for (int i = 1; i <= 10; i++) q.push(i);
+    while (q.size()) {
+        cout << q.front() << ' ';
+        q.pop();
     }
-
+    cout << '\n';
 }
-/*
-팅
-이
-화
-식
-준
-엄
-*/

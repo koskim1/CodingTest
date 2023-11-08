@@ -1,17 +1,10 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int fact_rec(int n) {
-    if (n == 1 || n == 0) return 1;
-    return n * fact_rec(n - 1);
-}
-
-int fact_for(int n) {
-    int ret = 1;
-    for (int i = 1; i <= n; i++) {
-        ret *= i;
-    }
-    return ret;
+int fibo(int n) {
+    cout << "fibo : " << n << "\n";
+    if (n == 0 || n == 1) return n;
+    return fibo(n - 1) + fibo(n - 2);
 }
 
 int n = 5;
@@ -20,11 +13,23 @@ int main(void) {
     ios::sync_with_stdio(0);
     cin.tie(0);
 
-    cout << fact_for(n) << "\n";
-    cout << fact_rec(n) << "\n";
-
+    cout << fibo(n) << "\n";
 }
 /*
-120
-120
+fibo : 5
+fibo : 4
+fibo : 3
+fibo : 2
+fibo : 1
+fibo : 0
+fibo : 1
+fibo : 2
+fibo : 1
+fibo : 0
+fibo : 3
+fibo : 2
+fibo : 1
+fibo : 0
+fibo : 1
+5
 */

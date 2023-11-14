@@ -1,27 +1,22 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int a[3] = { 1,2,3 };
-int n = 3, r = 3; // r을 바꿔가면서 연습해보세요. :)
+int n = 5, k = 3, a[5] = { 1,2,3,4,5 };
 
-void print() {
-    for (int i = 0; i < r; i++) {
-        cout << a[i] << " ";
-    }
-    cout << "\n";
+void print(vector<int> b) {
+    for (int i : b) cout << i << " ";
+    cout << '\n';
 }
 
-void makePermutation(int n, int r, int depth) {
-    if (r == depth) {
-        print();
+void combi(int start, vector<int> b) {
+    if (b.size() == k) {
+        print(b);
         return;
     }
-    for (int i = depth; i < n; i++) {
-        cout << i << " : " << depth << "를 바꾼다!\n";
-        swap(a[i], a[depth]);
-        makePermutation(n, r, depth + 1);
-        cout << i << " : " << depth << "를 다시 바꾼다!\n";
-        swap(a[i], a[depth]);
+    for (int i = start + 1; i < n; i++) {
+        b.push_back(i);
+        combi(i, b);
+        b.pop_back();
     }
     return;
 }
@@ -30,6 +25,19 @@ int main(void) {
     ios::sync_with_stdio(0);
     cin.tie(0);
 
-    makePermutation(n, r, 0);
+    vector<int> b;
+    combi(-1, b);
 
 }
+/*
+0 1 2
+0 1 3
+0 1 4
+0 2 3
+0 2 4
+0 3 4
+1 2 3
+1 2 4
+1 3 4
+2 3 4
+*/

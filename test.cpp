@@ -6,10 +6,11 @@ int main(void) {
     ios::sync_with_stdio(0);
     cin.tie(0);
 
-    int n = 16;
-    int ret = (int)sqrt(n);
-    cout << ret << "\n";
+    vector<int> v = { 1,2,3,4,5,6 };
+    rotate(v.begin(), v.begin() + 1, v.end());
+    for (int i : v) cout << i << ' ';
+
 }
 /*
-4
+2 3 4 5 6 1
 */

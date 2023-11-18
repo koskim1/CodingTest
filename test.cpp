@@ -7,10 +7,14 @@ int main(void) {
     cin.tie(0);
 
     vector<int> v = { 1,2,3,4,5,6 };
-    rotate(v.rbegin(), v.rbegin() + 1, v.rend());
+    int i = 1;
+    int temp = v[i];
+    v[i] = v[i + 1];
+    v[i + 1] = v[i + 2];
+    v[i + 2] = v[i + 3];
+    v[i + 3] = temp;
     for (int i : v) cout << i << ' ';
-
 }
 /*
-6 1 2 3 4 5
+1 3 4 5 2 6
 */

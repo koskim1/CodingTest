@@ -1,2 +1,4 @@
 ﻿  test.cpp
+C:\Users\user\source\repos\CodingTest\CodingTest\CodingTest\test.cpp(10,21): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\user\source\repos\CodingTest\CodingTest\CodingTest\test.cpp(11,24): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   CodingTest.vcxproj -> C:\Users\user\source\repos\CodingTest\CodingTest\CodingTest\x64\Debug\CodingTest.exe

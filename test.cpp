@@ -1,37 +1,36 @@
 ﻿#include <bits/stdc++.h>
 using namespace std;
 
+template<typename T> void printElement(T t, const int& width)
+{
+    cout << left << setw(width) << setfill(separator) << t;
+}
+
 int main(void) {
     ios::sync_with_stdio(0);
     cin.tie(0);
 
+    const char separator = ' ';
+    const int nameWidth = 10;
+    const int ageWidth = 5;
+    const int smallWordWidth = 20;
+
+    cout << setw(10) << "Name" << setw(5) << "Age" << setw(20) << "Legnth test" << "\n";
+    cout << setw(10) << "Brian" << setw(5) << "25" << setw(20) << "Hello setw Test" << "\n";
+    cout << setw(10) << "Alex" << setw(5) << "29" << setw(20) << "Let's go Spurs!" << "\n";
+    cout << setw(nameWidth) << "김범준" << setw(ageWidth) << "75" << setw(smallWordWidth) << "반갑다 setw Test" << "\n";
+    cout << setw(nameWidth) << "김형준" << setw(ageWidth) << "100" << setw(smallWordWidth) << "안녕setw Test" << "\n";
+
+
+    printElement("Brian", nameWidth);
+    printElement(2.11, ageWidth);
 }
 /*
-필수적인 개념학습 ( 알고리즘 )
-- 누적합
-- 구현
-- 그래프이론
-- DFS
-- BFS
-- 트리순회
-- 완탐
-- 백트래킹
-- 비트마스킹
-- 그리디
-- 라인스위핑
-- 투포인터
-- LIS
-- 이분탐색
-- DP
-- 최단거리
-- 펜웍트리
+      Name  Age         Legnth test
+     Brian   25     Hello setw Test
+      Alex   29     Let's go Spurs!
+    김범준   75    반갑다 setw Test
+    김형준  100       안녕setw Test
 
-CS 지식 공부
-- 디자인패턴
-- 네트워크
-- 운영체제
-- 자료구조
-- 데이터베이스
-
-
+    std::setw(공백숫자) => 깔끔하게 정렬되게해서 좋은 기능인것같다.
 */

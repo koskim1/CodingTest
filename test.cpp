@@ -1,16 +1,10 @@
 ﻿#include <bits/stdc++.h>
 using namespace std;
 
-template<typename T> void printElement(T t, const int& width)
-{
-    cout << left << setw(width) << setfill(separator) << t;
-}
-
 int main(void) {
     ios::sync_with_stdio(0);
     cin.tie(0);
 
-    const char separator = ' ';
     const int nameWidth = 10;
     const int ageWidth = 5;
     const int smallWordWidth = 20;
@@ -22,8 +16,6 @@ int main(void) {
     cout << setw(nameWidth) << "김형준" << setw(ageWidth) << "100" << setw(smallWordWidth) << "안녕setw Test" << "\n";
 
 
-    printElement("Brian", nameWidth);
-    printElement(2.11, ageWidth);
 }
 /*
       Name  Age         Legnth test

@@ -1,28 +1,40 @@
 ﻿#include <bits/stdc++.h>
 using namespace std;
 
+
+/*
+	재귀함수의 시간복잡도는 재귀함수의 메인로직에 있다.
+
+	MainLogic * 함수호출,,
+	메인로직에 대한 함수호출이 몇번 호출되냐에 따라 시간복잡도가 정해짐
+*/
+
+int N, cnt;
+
+void solve(int N) {
+	cnt++;
+	cout << cnt << '\n';
+	if (N == 0) return;
+	for (int i = 0; i < 3; i++) {
+		solve(N - 1);
+	}
+	return;
+}
+
+
 int main(void) {
     ios::sync_with_stdio(0);
     cin.tie(0);
 
-    const int nameWidth = 10;
-    const int ageWidth = 5;
-    const int smallWordWidth = 20;
+	cin >> N;
+	solve(N);
 
-    cout << setw(10) << "Name" << setw(5) << "Age" << setw(20) << "Legnth test" << "\n";
-    cout << setw(10) << "Brian" << setw(5) << "25" << setw(20) << "Hello setw Test" << "\n";
-    cout << setw(10) << "Alex" << setw(5) << "29" << setw(20) << "Let's go Spurs!" << "\n";
-    cout << setw(nameWidth) << "김범준" << setw(ageWidth) << "75" << setw(smallWordWidth) << "반갑다 setw Test" << "\n";
-    cout << setw(nameWidth) << "김형준" << setw(ageWidth) << "100" << setw(smallWordWidth) << "안녕setw Test" << "\n";
+	// 등비수열 문제이니
+	// a(r의n승 -1) / (r - 1)
 
-
+	// 이 문제의 메인로직은 O(1)을 가지고 있고
+	// 함수는 등비수열 만큼 즉 2분의 1의 ( 3의 n승 - 1인데)
+	// 상수 다 띄고나면 3의 n승이고
+	// 메인로직 X 함수는 => O(1) * O(3^n)이니 
+	// 이 식의 시간복잡도는 O(3^n)이다.
 }
-/*
-      Name  Age         Legnth test
-     Brian   25     Hello setw Test
-      Alex   29     Let's go Spurs!
-    김범준   75    반갑다 setw Test
-    김형준  100       안녕setw Test
-
-    std::setw(공백숫자) => 깔끔하게 정렬되게해서 좋은 기능인것같다.
-*/

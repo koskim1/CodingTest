@@ -1,38 +1,54 @@
 ﻿#include <bits/stdc++.h>
 using namespace std;
+
 /*
-* 1 - H 2559 수열
-N = 1 ~ 10만        // 온도를 측정한 전체 날짜의 수
-K = 1 ~ 10만 -1           // 합을 구하기 위한 연속적인 날짜의 수
-온도는 -100 ~ 100
-온도의 합이 "최대" 되는 값 : 구간합 prefix sum, psum[i]	 = psum[i-1] + a[i];
-이 문제의 최솟값은?
-최대값은 어디서부터?
+	string - int 같은경우 Map이 Array보다 시간이 더 효율적
+	// Map은 O(logN) Array는 O(N) ex) a['a' - 97]
+	int - string 같은경우 Array가 좀더 효율적이긴한데 거의 비슷함
+	// Map은 O(logN) Array는 O(1) 거의 비슷함
 
-최대값을 구하라가 나오면
-최솟값부터 >>>> 최대값을 구하는거임
+	****오늘의 핵심 키워드****
+	atoi(s.c_str())
 
-최소값을 구하라면 최대값 >>>> 최소값을 구하는거
+문자열을 int로 바꿔야 할 상황이 있습니다.
+예를 들어 입력이 “amumu” 또는 0 이렇게온다라고 했을 때 문자열,
+string으로 입력을 받아 입력받은 글자가 문자열인지 숫자인지
+확인해야 하는 로직이 필요할 때 말이죠.
 
-ret = max(ret,value);처럼
-ret을 기반으로 해서 최종적인 최대값을 만들어서 문제에 반환해야함
-최소값은 min(ret, value);
+다음 코드 처럼 입력받은 문자열 s를 기반으로 atoi(s.c_str())로 쓰입니다.
+이렇게 보면 만약 입력받은 문자열이 문자라면 0을 반환하고
+그게 아니라면 숫자를 반환합니다.
+
 */
 
-typedef long long ll;
-int n, k, temp, psum[100001], ret = -10000004;
+int n, m;
+string s;
+string a[100004];
+
+map<string, int> mp;
+map<int, string> mp2;
 
 int main() {
 	ios::sync_with_stdio(0);
 	cin.tie(0);
 
-	cin >> n >> k;
-	for (int i = 1; i <= n; i++) {
-		cin >> temp; psum[i] = psum[i - 1] + temp;
+	cin >> n >> m;
+	for (int i = 0; i < n; i++) {
+		cin >> s;
+		mp[s] = i + 1;
+		mp2[i + 1] = s;
+		a[i + 1] = s;
 	}
-	for (int i = k; i <= n; i++) {
-		ret = max(ret, psum[i] - psum[i - k]);
+	for (int i = 0; i < m; i++) {
+		cin >> s;
+		if (atoi(s.c_str()) == 0) {
+			cout << mp[s] << "\n";
+		}
+		else {
+			// mp2의 <int, string> 에서 해당 <int, 여기에 걸린것>의
+			// key값을 반환하니 해당 번호가 나오는 것
+			cout << mp2[atoi(s.c_str())] << "\n";
+			// cout << a[atoi(s.c_str())] << "\n";
+		}
 	}
-	cout << ret << "\n";
-
 }

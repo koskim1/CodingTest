@@ -1,54 +1,30 @@
 ﻿#include <bits/stdc++.h>
 using namespace std;
 
-/*
-	string - int 같은경우 Map이 Array보다 시간이 더 효율적
-	// Map은 O(logN) Array는 O(N) ex) a['a' - 97]
-	int - string 같은경우 Array가 좀더 효율적이긴한데 거의 비슷함
-	// Map은 O(logN) Array는 O(1) 거의 비슷함
-
-	****오늘의 핵심 키워드****
-	atoi(s.c_str())
-
-문자열을 int로 바꿔야 할 상황이 있습니다.
-예를 들어 입력이 “amumu” 또는 0 이렇게온다라고 했을 때 문자열,
-string으로 입력을 받아 입력받은 글자가 문자열인지 숫자인지
-확인해야 하는 로직이 필요할 때 말이죠.
-
-다음 코드 처럼 입력받은 문자열 s를 기반으로 atoi(s.c_str())로 쓰입니다.
-이렇게 보면 만약 입력받은 문자열이 문자라면 0을 반환하고
-그게 아니라면 숫자를 반환합니다.
-
-*/
-
-int n, m;
-string s;
-string a[100004];
-
-map<string, int> mp;
-map<int, string> mp2;
+int t, n;
+string a, b;
 
 int main() {
 	ios::sync_with_stdio(0);
 	cin.tie(0);
 
-	cin >> n >> m;
-	for (int i = 0; i < n; i++) {
-		cin >> s;
-		mp[s] = i + 1;
-		mp2[i + 1] = s;
-		a[i + 1] = s;
-	}
-	for (int i = 0; i < m; i++) {
-		cin >> s;
-		if (atoi(s.c_str()) == 0) {
-			cout << mp[s] << "\n";
+	cin >> t;
+	while (t--) {
+		map<string, int> _map;
+		cin >> n;
+		for (int i = 0; i < n; i++) {
+			cin >> a >> b;
+			_map[b]++;
 		}
-		else {
-			// mp2의 <int, string> 에서 해당 <int, 여기에 걸린것>의
-			// key값을 반환하니 해당 번호가 나오는 것
-			cout << mp2[atoi(s.c_str())] << "\n";
-			// cout << a[atoi(s.c_str())] << "\n";
+		// 경우의 수면 long long을 박고 시작하는게 좋음
+		long long ret = 1;
+		for (auto c : _map) {
+			// 경우의수 a*b
+			// 종류중에 안입는종류도 있으니 + 1
+			ret *= ((long long)c.second + 1);
 		}
+		// 아무것도 안입는경우는 안된다하니 빼주고
+		ret--;
+		cout << ret << "\n";
 	}
 }

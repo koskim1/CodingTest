@@ -1,40 +1,40 @@
 ﻿#include <bits/stdc++.h>
 using namespace std;
 
-string s, ret;
-int cnt[200], flag;
-char mid;
+/*
+N개의 숫자들 중 두 합이 M이 되는 갯수를 구하는 프로그램
+고유 번호라하니 중복은 없을듯.
+
+바로생각나야하는게 Combination 조합!! nCr
+순서 상관없으니깐 조합!!
+
+만약 순서 상관있는 문제라하면 Permutation,,, nPr
+
+여기에서는 2개만 뽑으면 되니깐 nC2임
+
+배열? 백터? 배열써볼까
+*/
+
+int n, m, cnt;
+int a[15001];
 
 int main() {
 	ios::sync_with_stdio(0);
 	cin.tie(0);
 
-	cin >> s;
-	for (char a : s) cnt[a]++;
-	for (int i = 'Z'; i >= 'A'; i--) {
-		if (cnt[i]) {
-			// 원래 홀수체크는 ( % 2 == 1)해서 하는데
-			// & 1 로도 가능 2진수 마지막이 1이면 무조건 홀수이기 때문
-			if (cnt[i] & 1) {
-				mid = char(i); flag++;
-				cnt[i]--;
-			}
-			// 홀수가 2개이상이면 break해서 Sorry출력
-			if (flag == 2) break;
-			// 양사이드에 짝수인 알파벳 넣기
-			for (int j = 0; j < cnt[i]; j += 2) {
-				ret = char(i) + ret;
-				//여기서 ret += char(i)를 한 이유가
-				// ret = ret + char(i) 로해서 ret의 뒤쪽에 char(i)를 놓기위해임
-				ret += char(i);
-			}
-		}
+	cin >> n >> m;
+	for (int i = 0; i < n; i++) {
+		cin >> a[i];
 	}
 
-	// 예시로 "ABBA"가 됐고 mid에 Z가 있다면
-	// 중앙에 이제 'Z'를 insert해주기위해 중앙에 넣어주는 것
-	if (mid)ret.insert(ret.begin() + ret.size() / 2, mid);
-	if (flag == 2) cout << "I'm Sorry Hansoo\n";
-	else cout << ret << "\n";
+	if (m > 200000) cout << 0 << "\n";
+	else {
+		for (int i = 0; i < n; i++) {
+			for (int j = i + 1; j < n; j++) {
+				if (a[i] + a[j] == m) cnt++;
+			}
+		}
+		cout << cnt << "\n";
+	}
 
 }

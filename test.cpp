@@ -1,27 +1,27 @@
-﻿#include <bits/stdc++.h>
+﻿#define _CRT_SECURE_NO_WARNINGS
+#include <bits/stdc++.h>
 using namespace std;
 typedef long long ll;
 
-ll a, b, c;
+int n;
 
-ll go(ll a, ll b) {
-	if (b == 1)return a % c;
-
-	ll ret = go(a, b / 2);
-
-	ret = (ret * ret) % c;
-
-	//만약 홀수일 경우 한번더 더해줘야함
-	// 2의 5승일 경우 2^2 X 2^2 X 2^1 <- 이넘처럼
-	if (b % 2) ret = (ret * a) % c;
-	return ret;
-}
 
 int main() {
-	ios::sync_with_stdio(0);
-	cin.tie(0);
+	//ios::sync_with_stdio(0);
+	//cin.tie(0);
 
-	cin >> a >> b >> c;
-	cout << go(a, b) << "\n";
-
+	while (scanf("%d", &n) != EOF) {
+		ll cnt = 1, ret = 1;
+		while (true) {
+			if (cnt % n == 0) {
+				printf("%lld\n", ret);
+				break;
+			}
+			else {
+				cnt = (cnt * 10) % n + 1 % n;
+				ret++;
+			}
+		}
+	}
+	return 0;
 }

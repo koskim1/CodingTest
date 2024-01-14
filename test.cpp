@@ -2,45 +2,49 @@
 using namespace std;
 
 /*
-1번.
-정점은 0번부터 9번까지 10개의 노드가 있다. 1 - 2 /  1- 3 / 3 - 4라는 경로가 있다. 
-(1번과 2번, 1번과 3번, 3번과 4번은 연결되어 있다 )
-이를 인접리스트로 표현한다면?
+인접행렬과 인접리스트의 차이
 
-2번.
-0번부터 방문안한 노드를 찾고 해당 노드부터 방문, 연결된 노드를 이어서 방문해서 
-출력하는 재귀함수를 만들고 싶다면 어떻게 해야할까?
-또한, 정점을 방문하고나서 다시 방문하지 않게 만드려면 어떻게 해야할까?
-*/
+공간복잡도
+- 인접행렬 : O(V^2)
+- 인접리스트 : O(V+E)
 
-const int V = 10;
+// 인접행렬
+bool adj[V][V];
+// 인접리스트
 vector<int> adj[V];
-int visited[V];
 
-void go(int idx) {
-	cout << idx << '\n';
-	visited[idx] = 1;
-	for (int there : adj[idx]) {
-		if (visited[there]) continue;
-		go(there);
+시간복잡도 : 간선 한개 찾기
+- 인접행렬 : O(1)
+- 인접리스트 : O(V)
+
+// 인접행렬
+for(int i=0; i<V; i++){
+	for(int j=0; j<V; j++){
+		if(a[i][j]){
+		}
 	}
 }
+// 인접리스트
+for(int j=0; j<adj[i].size(); j++){
+	cout << adj[i][j] << " ";
+}
+
+시간복잡도 : 모든 간선찾기
+- 인접행렬 : O(V^2)
+- 인접리스트 : O(V+E)
+
+그래프가 희소할 때는 인접리스트, 조밀할때는 인접행렬이 좋다.
+
+- 보통은 인접리스트를 스면 됨. 문제에서 sparse한 그래프가 많이 나옴.
+- 다만, 문제 또는 코딩인터뷰에서 인접행렬로 주어진다면 그대로 인접행렬로 푸는 것이 좋다.
+*/
+
+
+
 
 int main() {
 	ios::sync_with_stdio(0);
 	cin.tie(0);
 
-	adj[1].push_back(2);
-	adj[2].push_back(1);
 
-	adj[1].push_back(3);
-	adj[3].push_back(1);
-
-	adj[3].push_back(4);
-	adj[4].push_back(3);
-
-	for (int i = 0; i < V; i++) {
-		if (adj[i].size() && visited[i] == 0)
-			go(i);
-	}
 }

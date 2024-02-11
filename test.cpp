@@ -2,41 +2,18 @@
 using namespace std;
 
 /*
-Q. 3 * 3 맵을 입력받아야 함.
+연결된 컴포넌트 ( connected component )
 
-이 맵은 1과 0으로 이루어져있고 { 0, 0 }은 무조건 1임을 보장한다. 
+연결된 컴포넌트 ( connected component )는 연결된 하위그래프를 말하며 연결된 하나의 덩어리라고 보시면 됩니다.
+이 덩어리는 연결된 컴포넌트에 속한 “모든 정점을 연결하는 경로가 잇다.”라는 특징을 가집니다.
 
-{ 0, 0 }부터 4방향을 기준으로 한칸씩 탐색해나가며 방문한 정점은 다시 방문하지 않으며 
-
-방문하는 좌표를 출력하는 코드. 0은 갈 수 없는 지역. 1은 갈 수 있는 지역을 구현하시오.
-
+연결되어 있는지 아니면 연결되어있지 않는지를 토대로 연결된 컴포넌트로 나눕니다. 
+이러한 컴포넌트들을 번호를 붙여가며 색칠하는 알고리즘을 풀르드필 ( floodfill ) 이라고 합니다.
 */
 
-const int n = 3;
-int a[n][n], visited[n][n];
-const int dy[] = { -1, 0, 1, 0 };
-const int dx[] = { 0, 1, 0, -1 };
 
-void go(int y, int x) {
-    visited[y][x] = 1;
-    cout << y << " : " << x << "\n";
-    for (int i = 0; i < 4; i++) {
-        int ny = y + dy[i];
-        int nx = x + dx[i];
-        if (ny < 0 || ny >= n || nx < 0 || nx >= n) continue;
-        if (a[ny][nx] == 0) continue;
-        if (visited[ny][nx]) continue;
-        go(ny, nx);
-    }
-    return;
-}
 int main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            cin >> a[i][j];
-        }
-    }
-    go(0, 0);
+
 }

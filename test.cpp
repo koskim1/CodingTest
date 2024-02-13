@@ -1,19 +1,23 @@
 ﻿#include<bits/stdc++.h>
 using namespace std;
 
-const int n = 6;
-vector<int> adj[n];
-int visited[n];
+int dy[4] = { -1,0,1,0 };
+int dx[4] = { 0,1,0,-1 };
+int m, n, y, x, ret, ny, nx, t;
+int a[104][104];
+bool visited[104][104];
 
-void dfs(int u) {
-    visited[u] = 1;
-    cout << u << "\n";
-    for (int v : adj[u]) {
-        if (visited[v] == 0) {
-            dfs(v);
+void dfs(int y, int x) {
+    cout << y << " : " << x << '\n';
+    visited[y][x] = 1;
+    for (int i = 0; i < 4; i++) {
+        ny = y + dy[i];
+        nx = x + dx[i];
+        if (ny < 0 || nx < 0 || ny >= n || nx >= m) continue;
+        if (a[ny][nx] == 1 && !visited[ny][nx]) {
+            dfs(ny, nx);
         }
     }
-    cout << u << "로부터 시작된 함수가 종료되었습니다.\n";
     return;
 }
 
@@ -21,23 +25,35 @@ int main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
 
-    adj[1].push_back(2);
-    adj[1].push_back(3);
-    adj[2].push_back(4);
-    adj[4].push_back(2);
-    adj[2].push_back(5);
-    dfs(1);
+    cin >> n >> m;
+    
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            cin >> a[i][j];
+        }
+    }
 
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            if (a[i][j] == 1 && !visited[i][j]) {
+                ret++;
+                dfs(i, j);
+            }
+        }
+    }
+    cout << ret << '\n'; 
 }
 /*
-1
-2
+* 
+입력
+5 5
+1 0 1 0 1
+1 1 0 0 1
+0 0 0 1 1
+0 0 0 1 1
+0 1 0 0 0
+
+출력
 4
-4로부터 시작된 함수가 종료되었습니다.
-5
-5로부터 시작된 함수가 종료되었습니다.
-2로부터 시작된 함수가 종료되었습니다.
-3
-3로부터 시작된 함수가 종료되었습니다.
-1로부터 시작된 함수가 종료되었습니다.
+
 */

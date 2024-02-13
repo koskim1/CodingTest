@@ -1,59 +1,54 @@
 ﻿#include<bits/stdc++.h>
 using namespace std;
 
-int dy[4] = { -1,0,1,0 };
-int dx[4] = { 0,1,0,-1 };
-int m, n, y, x, ret, ny, nx, t;
-int a[104][104];
-bool visited[104][104];
+vector<int> adj[100];
+int visited[100];
+int nodeList[] = { 10,12,14,16,18,20,22,24 };
 
-void dfs(int y, int x) {
-    cout << y << " : " << x << '\n';
-    visited[y][x] = 1;
-    for (int i = 0; i < 4; i++) {
-        ny = y + dy[i];
-        nx = x + dx[i];
-        if (ny < 0 || nx < 0 || ny >= n || nx >= m) continue;
-        if (a[ny][nx] == 1 && !visited[ny][nx]) {
-            dfs(ny, nx);
+void bfs(int here) {
+    queue<int> q;
+    visited[here] = 1;
+    q.push(here);
+    while (q.size()) {
+        int here = q.front();
+        q.pop();
+        for (int there : adj[here]) {
+            if (visited[there]) continue;
+            visited[there] = visited[here] + 1;
+            q.push(there);
         }
     }
-    return;
 }
 
 int main() {
     ios::sync_with_stdio(0);
     cin.tie(0);
 
-    cin >> n >> m;
-    
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < m; j++) {
-            cin >> a[i][j];
-        }
-    }
+    adj[10].push_back(12);
+    adj[10].push_back(14);
+    adj[10].push_back(16);
 
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < m; j++) {
-            if (a[i][j] == 1 && !visited[i][j]) {
-                ret++;
-                dfs(i, j);
-            }
-        }
+    adj[12].push_back(18);
+    adj[12].push_back(20);
+
+
+    adj[20].push_back(22);
+    adj[20].push_back(24);
+    bfs(10);
+
+    for (int i : nodeList) {
+        cout << i << " : " << visited[i] << '\n';
     }
-    cout << ret << '\n'; 
+    cout << "10번으로부터 24번까지 최단거리는 : " << visited[24] - 1 << '\n';    
 }
 /*
-* 
-입력
-5 5
-1 0 1 0 1
-1 1 0 0 1
-0 0 0 1 1
-0 0 0 1 1
-0 1 0 0 0
-
-출력
-4
-
+10 : 1
+12 : 2
+14 : 2
+16 : 2
+18 : 3
+20 : 3
+22 : 4
+24 : 4
+10번으로부터 24번까지 최단거리는 : 3
 */

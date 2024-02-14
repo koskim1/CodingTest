@@ -1,54 +1,69 @@
 ﻿#include<bits/stdc++.h>
 using namespace std;
 
-vector<int> adj[100];
-int visited[100];
-int nodeList[] = { 10,12,14,16,18,20,22,24 };
-
-void bfs(int here) {
-    queue<int> q;
-    visited[here] = 1;
-    q.push(here);
-    while (q.size()) {
-        int here = q.front();
-        q.pop();
-        for (int there : adj[here]) {
-            if (visited[there]) continue;
-            visited[there] = visited[here] + 1;
-            q.push(there);
-        }
-    }
-}
+const int max_n = 104;
+int dy[4] = { -1,0,1,0 };
+int dx[4] = { 0,1,0,-1 };
+int n, m, a[max_n][max_n], visited[max_n][max_n], y, x, sy, sx, ey, ex;
 
 int main() {
-    ios::sync_with_stdio(0);
-    cin.tie(0);
-
-    adj[10].push_back(12);
-    adj[10].push_back(14);
-    adj[10].push_back(16);
-
-    adj[12].push_back(18);
-    adj[12].push_back(20);
-
-
-    adj[20].push_back(22);
-    adj[20].push_back(24);
-    bfs(10);
-
-    for (int i : nodeList) {
-        cout << i << " : " << visited[i] << '\n';
+    //ios::sync_with_stdio(0);
+    //cin.tie(0);
+    scanf_s("%d %d", &n, &m);
+    cin >> sy >> sx;
+    cin >> ey >> ex;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            cin >> a[i][j];
+        }
     }
-    cout << "10번으로부터 24번까지 최단거리는 : " << visited[24] - 1 << '\n';    
+
+    queue<pair<int, int>> q;
+    visited[sy][sx] = 1;
+    q.push({ sy,sx });
+    while (q.size()) {
+        tie(y, x) = q.front();
+        q.pop();
+        for (int i = 0; i < 4; i++) {
+            int ny = y + dy[i];
+            int nx = x + dx[i];
+            if (ny < 0 || nx < 0 || ny >= n || nx >= m || a[ny][nx] == 0)continue;
+            if (visited[ny][nx]) continue;
+            visited[ny][nx] = visited[y][x] + 1;
+            q.push({ ny,nx });
+        }
+    }
+
+    printf("%d\n", visited[ey][ex]);
+    // 최단거리 디버깅
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++){
+            cout << visited[i][j] << ' ';
+        }
+        cout << '\n';
+    }
+    return 0;
 }
 /*
-10 : 1
-12 : 2
-14 : 2
-16 : 2
-18 : 3
-20 : 3
-22 : 4
-24 : 4
-10번으로부터 24번까지 최단거리는 : 3
+
+입력
+5 5
+0 0
+4 4
+1 0 1 0 1
+1 1 1 0 1
+0 0 1 1 1
+0 0 1 1 1
+0 0 1 1 1
+
+출력
+9
+
+이동경로
+1 0 5 0 9
+2 3 4 0 8
+0 0 5 6 7
+0 0 6 7 8
+0 0 7 8 9
+
 */

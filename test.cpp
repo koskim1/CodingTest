@@ -1,81 +1,37 @@
-﻿#include<bits/stdc++.h>
+﻿#include <bits/stdc++.h>
 using namespace std;
 
-vector<int> adj[1004];
-int visited[1004];
+const int max_n = 104;
+int dy[4] = { -1, 0, 1, 0 };
+int dx[4] = { 0,1,0,-1 };
 
-// 왼쪽노드 -> 오른쪽노드 -> 자신
-void postOrder(int here) {
-    if (visited[here] == 0) {
-        if (adj[here].size() == 1)postOrder(adj[here][0]);
-        if (adj[here].size() == 2) {
-            postOrder(adj[here][0]);
-            postOrder(adj[here][1]);
-        }
-        visited[here] = 1;
-        cout << here << ' ';
-    }
-}
-
-// 자신 -> 왼쪽노드 -> 오른쪽노드
-void preOrder(int here) {
-    if (visited[here] == 0) {
-        visited[here] = 1;
-        cout << here << ' ';
-        if (adj[here].size() == 1)preOrder(adj[here][0]);
-        if (adj[here].size() == 2) {
-            preOrder(adj[here][0]);
-            preOrder(adj[here][1]);
-        }
-    }
-}
-
-// 왼쪽노드 -> 자신 -> 오른쪽 노드
-void inOrder(int here) {
-    if (visited[here] == 0) {
-        if (adj[here].size() == 1) {
-            inOrder(adj[here][0]);
-            visited[here] = 1;
-            cout << here << ' ';
-        }
-        else if (adj[here].size() == 2) {
-            inOrder(adj[here][0]);
-
-            visited[here] = 1;
-            cout << here << ' ';
-
-            inOrder(adj[here][1]);
-        }
-        else {
-            visited[here] = 1;
-            cout << here << ' ';
-        }
-    }
-}
+int n, m, a[max_n][max_n], visited[max_n][max_n], y, x;
 
 int main() {
-    //ios::sync_with_stdio(0);
-    //cin.tie(0);
-    adj[1].push_back(2);
-    adj[1].push_back(3);
-    adj[2].push_back(4);
-    adj[2].push_back(5);
-    int root = 1;
-    cout << "\n 트리순회 : postOrder \n";
-    postOrder(root); memset(visited, 0, sizeof(visited));
-    cout << "\n 트리순회 : preOrder \n";
-    preOrder(root); memset(visited, 0, sizeof(visited));
-    cout << "\n 트리순회 : inOrder \n";
-    inOrder(root);
+	ios::sync_with_stdio(0);
+	cin.tie(0);
 
+	scanf("%d %d", &n, &m);
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < m; j++) {
+			scanf("%1d", &a[i][j]);
+		}
+	}
+
+	queue<pair<int, int>> q;
+	visited[0][0] = 1;
+	q.push({ 0,0 });
+	while (q.size()) {
+		tie(y, x) = q.front(); q.pop();
+		for (int i = 0; i < 4; i++) {
+			int ny = y + dy[i];
+			int nx = x + dx[i];
+			if (ny < 0 || ny >= n || nx < 0 || nx >= m || a[ny][nx] == 0)continue;
+			if (visited[ny][nx])continue;
+			visited[ny][nx] = visited[y][x] + 1;
+			q.push({ ny, nx });
+		}
+	}
+	printf("%d", visited[n - 1][m - 1]);
 
 }
-
-/*
- 트리순회 : postOrder
- 4 5 2 3 1
- 트리순회 : preOrder
- 1 2 4 5 3
- 트리순회 : inOrder
- 4 2 5 1 3
-*/

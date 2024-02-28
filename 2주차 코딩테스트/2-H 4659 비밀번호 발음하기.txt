@@ -1,11 +1,11 @@
-﻿#include <bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
 string s;
 int lcnt, vcnt;
 
 bool isVowel(int idx) {
-	return (idx == 'a' || idx == 'e' || idx == 'i' || idx == 'o' || idx == 'u');
+	return (idx == 'a' || idx == 'e' || idx == 'i' || idx == 'o' || idx == 'u');	
 }
 
 int main() {
@@ -15,7 +15,7 @@ int main() {
 	while (true) {
 		cin >> s;
 		if (s == "end")break;
-
+		
 		// 초기화
 		lcnt = vcnt = 0;
 		bool flag = 0;

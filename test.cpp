@@ -1,36 +1,29 @@
 ﻿#include <bits/stdc++.h>
 using namespace std;
 
-int n, c, a[1004];
-vector<pair<int, int>>v;
-map<int, int> mp, mp_first;
+int n, x, y;
 
-bool cmp(pair<int, int> a, pair<int, int> b) {
-	if (a.first == b.first) {
-		return mp_first[a.second] < mp_first[b.second];
+bool sorting(pair<int, int> p, pair<int, int> p2) {
+	if (p.first == p2.first) { // x좌표가 같다면
+		return p.second < p2.second; // y좌표를 오름차순으로
 	}
-	return a.first > b.first;
+
+	return p.first < p2.first; // x좌표가 같지 않다면 x좌표를 오름차순으로
 }
-
 int main() {
-	ios::sync_with_stdio(0);
-	cin.tie(0);
 
-	cin >> n >> c;
+	vector<pair<int, int>> v;
 
-	for (int i = 0; i < n; i++) {
-		cin >> a[i];
-		mp[a[i]]++;
-		if (mp_first[a[i]] == 0) mp_first[a[i]] = i + 1;
+	cin >> n;
+
+	while (n--) {
+		cin >> x >> y;
+		v.push_back(make_pair(x, y));
 	}
-	for (auto it : mp) {
-		v.push_back({ it.second, it.first });
-	}
-	sort(v.begin(), v.end(), cmp);
 
-	for (auto i : v) {
-		for (int j = 0; j < i.first; j++) {
-			cout << i.second << " ";
-		}
+	sort(v.begin(), v.end(), sorting);
+
+	for (auto x : v) {
+		cout << x.first << " " << x.second << "\n";
 	}
 }

@@ -1,8 +1,8 @@
-﻿#include <bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
 int n;
-string s, ret;
+string s,ret;
 vector<string> v;
 
 void go() {

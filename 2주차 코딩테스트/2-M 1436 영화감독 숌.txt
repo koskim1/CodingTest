@@ -10,3 +10,37 @@ int main() {
     }
     cout << i << "\n";
 }
+----------------------------------------------------------
+MY VERSION
+#include <bits/stdc++.h>
+using namespace std;
+
+int N, i, series;
+string target;
+
+int FindSeries(int N) {
+	i = 666;
+	
+	while (1) {
+		target = to_string(i);
+		for (int j = 0; j < target.length() - 2; j++) {
+			if (target[j] == '6' && target[j + 1] == '6' && target[j + 2] == '6') {
+				series++;
+				if (series == N)
+					return i;
+				break;
+			}
+		}
+		i++;
+	}
+
+}
+
+int main() {
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	
+	cin >> N;
+	cout << FindSeries(N);
+
+}

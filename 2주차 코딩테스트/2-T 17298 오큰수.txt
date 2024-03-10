@@ -1,4 +1,4 @@
-﻿#include <bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
 // 짝짓기 문제니깐
@@ -9,10 +9,10 @@ int n, a[1000004], ret[1000004];
 int main() {
 	ios::sync_with_stdio(0);
 	cin.tie(0);
-
+	
 	cin >> n;
 	memset(ret, -1, sizeof(ret));
-	for (int i = 0; i < n; i++) {
+	for(int i=0;i<n;i++){
 		cin >> a[i];
 		while (s.size() && a[s.top()] < a[i]) {
 			ret[s.top()] = a[i];

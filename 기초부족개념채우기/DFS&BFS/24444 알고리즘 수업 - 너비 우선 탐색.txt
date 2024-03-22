@@ -1,7 +1,7 @@
-﻿#include <bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
-int n, m, r, a, b, cnt = 1;
+int n, m, r, a, b,cnt=1;
 int visited[100004];
 int result[100004];
 
@@ -12,7 +12,7 @@ void bfs(int here) {
 
 	visited[here] = 1;
 	q.push(here);
-
+	
 	while (!q.empty()) {
 		int here = q.front();
 		//cout << here << "\n";
@@ -22,7 +22,7 @@ void bfs(int here) {
 		cnt++;
 
 		for (int there : v[here]) {
-			if (visited[there]) continue;
+			if (visited[there]) continue;		
 			visited[there] = visited[here] + 1;
 			q.push(there);
 		}

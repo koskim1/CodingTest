@@ -1,4 +1,4 @@
-﻿#pragma warning(disable:4996)
+#pragma warning(disable:4996)
 #include <bits/stdc++.h>
 using namespace std;
 #define prev aaa
@@ -9,7 +9,7 @@ const int max_n = 1501;
 const int dy[4] = { -1,0,1,0 };
 const int dx[4] = { 0,1,0,-1 };
 int visited_swan[max_n][max_n], visited[max_n][max_n], R, C,
-day, swanY, swanX, y, x;
+    day, swanY, swanX, y, x;
 char a[max_n][max_n];
 queue<pair<int, int>> waterQ, water_tempQ, swanQ, swan_tempQ;
 string s;
@@ -70,7 +70,7 @@ bool move_swan() {
             if (a[ny][nx] == '.')swanQ.push({ ny,nx });
             else if (a[ny][nx] == 'X') swan_tempQ.push({ ny,nx });
             else if (a[ny][nx] == 'L') return true;
-        }
+        } 
     }
     return false;
 }

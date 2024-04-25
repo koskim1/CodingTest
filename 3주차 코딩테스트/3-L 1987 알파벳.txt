@@ -1,4 +1,4 @@
-﻿#pragma warning(disable:4996)
+#pragma warning(disable:4996)
 #include <bits/stdc++.h>
 using namespace std;
 #define prev aaa
@@ -45,7 +45,7 @@ void go(int y, int x, int cnt) {
 
         int next = (int)(a[ny][nx] - 'A');
 
-        if (visited[next] == 0) {
+          if (visited[next] == 0) {
             visited[next] = 1;
             go(ny, nx, cnt + 1);
             visited[next] = 0;

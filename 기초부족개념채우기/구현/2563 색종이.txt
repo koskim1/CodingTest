@@ -1,4 +1,4 @@
-﻿#pragma warning(disable:4996)
+#pragma warning(disable:4996)
 #include <bits/stdc++.h>
 using namespace std;
 #define prev aaa
@@ -17,7 +17,7 @@ int a[104][104];
 int cnt, n, x, y;
 int main() {
     fastIO();
-
+    
     cin >> n;
     while (n--) {
         cin >> x >> y;

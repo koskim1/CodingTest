@@ -1,4 +1,4 @@
-﻿#pragma warning(disable:4996)
+#pragma warning(disable:4996)
 #include <bits/stdc++.h>
 using namespace std;
 #define prev aaa
@@ -20,7 +20,7 @@ void fastIO() {
 정수 k 가 주어짐
 k 만큼의 부등호 < 나 > 가 입력되면
 
-해당 식에 부합하며, 겹치지 않는 수 중
+해당 식에 부합하며, 겹치지 않는 수 중 
 (k+1)자리의 정수 중에서 최댓값과 최솟값을 찾아라.
 
 */

@@ -1,4 +1,4 @@
-﻿#pragma warning(disable:4996)
+#pragma warning(disable:4996)
 #include <bits/stdc++.h>
 using namespace std;
 #define prev aaa
@@ -30,7 +30,7 @@ void go(int s, int e, int level) {
 
 int main() {
     fastIO();
-
+    
 
     // inorder문제구나!!
     cin >> n;

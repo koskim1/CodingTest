@@ -1,4 +1,4 @@
-﻿//정답코드
+//정답코드
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -8,7 +8,7 @@ string s, ori_s, pre, suf;
 int main() {
 	ios::sync_with_stdio(0);
 	cin.tie(0);
-
+	
 	cin >> n;
 	cin >> ori_s;
 	int pos = ori_s.find('*');

@@ -1,4 +1,4 @@
-﻿#include <bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
 string s;
@@ -27,8 +27,8 @@ int main() {
 	* // 예외사항을 생각안하고있었음
 	* 카운팅을 하는것이 아닌 그냥 바로 고쳤으면 됐음
 	* 아스키 코드 잘 생각할것 A = 65 a = 97 알파벳은 26개임
-	*
-	*
+	* 
+	* 
 	cin >> s;
 	for (int i = 0; i < s.size(); i++) {
 		if (s[i] >= 97) {

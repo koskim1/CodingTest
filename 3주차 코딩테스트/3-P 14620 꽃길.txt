@@ -1,4 +1,4 @@
-﻿#pragma warning(disable:4996)
+#pragma warning(disable:4996)
 #include <bits/stdc++.h>
 using namespace std;
 #define prev aaa
@@ -15,7 +15,7 @@ void fastIO() {
 const int dy[4] = { -1, 0, 1 ,0 };
 const int dx[4] = { 0, 1, 0, -1 };
 
-int n, p[20][20], v[20][20], ret = 987654321;
+int n, p[20][20],v[20][20], ret = 987654321;
 
 int setFlower(int y, int x) {
     v[y][x] = 1;
@@ -65,7 +65,7 @@ void flower(int cnt, int hap) {
 
 int main() {
     fastIO();
-
+    
     cin >> n;
     for (int i = 0; i < n; i++) {
         for (int j = 0; j < n; j++) {

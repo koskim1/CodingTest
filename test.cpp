@@ -12,66 +12,43 @@ void fastIO() {
     cout.tie(NULL);
 }
 
-const int dy[4] = { -1, 0, 1 ,0 };
-const int dx[4] = { 0, 1, 0, -1 };
+const int dy[4] = { -1,0,1,0 };
+const int dx[4] = { 0,1,0,-1 };
 
-int n, p[20][20], v[20][20], ret = 987654321;
+// 다시 방문하지 않으니 visited 배열까즤
+int n, m, k, visited[10][10];
+char a[10][10];
+string s;
 
-int setFlower(int y, int x) {
-    v[y][x] = 1;
-    int s = p[y][x];
+int go(int y, int x) {
+    //기저사례
+    if (y == 0 && x == m - 1) {
+        if (k == visited[y][x])return 1;
+        return 0;
+    }
+    int ret = 0;
     for (int i = 0; i < 4; i++) {
+        // 매개변수로 해야하는건 무조건 지역변수로 하자.
         int ny = y + dy[i];
         int nx = x + dx[i];
-        v[ny][nx] = 1;
-        s += p[ny][nx];
+        if (ny < 0 || ny >= n || nx < 0 || nx >= m || visited[ny][nx] || a[ny][nx] == 'T')continue;
+        visited[ny][nx] = visited[y][x] + 1;
+        ret += go(ny, nx);
+        visited[ny][nx] = 0;
     }
-    return s;
-}
-
-bool check(int y, int x) {
-    if (v[y][x]) return 0;
-    for (int i = 0; i < 4; i++) {
-        int ny = y + dy[i];
-        int nx = x + dx[i];
-        if (ny < 0 || ny >= n || nx < 0 || nx >= n || v[ny][nx])return 0;
-    }
-    return 1;
-}
-
-void eraseFlower(int y, int x) {
-    v[y][x] = 0;
-    for (int i = 0; i < 4; i++) {
-        int ny = y + dy[i];
-        int nx = x + dx[i];
-        v[ny][nx] = 0;
-    }
-}
-
-void flower(int cnt, int hap) {
-    if (cnt == 3) {
-        ret = min(ret, hap);
-        return;
-    }
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            if (check(i, j)) {
-                flower(cnt + 1, hap + setFlower(i, j));
-                eraseFlower(i, j);
-            }
-        }
-    }
+    return ret;
 }
 
 int main() {
     fastIO();
 
-    cin >> n;
+    cin >> n >> m >> k;
     for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            cin >> p[i][j];
+        cin >> s;
+        for (int j = 0; j < m; j++) {
+            a[i][j] = s[j];
         }
     }
-    flower(0, 0);
-    cout << ret << "\n";
+    visited[n - 1][0] = 1;
+    cout << go(n - 1, 0) << "\n";
 }

@@ -12,43 +12,26 @@ void fastIO() {
     cout.tie(NULL);
 }
 
-const int dy[4] = { -1,0,1,0 };
-const int dx[4] = { 0,1,0,-1 };
-
-// 다시 방문하지 않으니 visited 배열까즤
-int n, m, k, visited[10][10];
-char a[10][10];
+int t, r;
 string s;
 
-int go(int y, int x) {
-    //기저사례
-    if (y == 0 && x == m - 1) {
-        if (k == visited[y][x])return 1;
-        return 0;
+void repeat(int j) {
+    for (int i = 0; i < r; i++) {
+        cout << s[j];
     }
-    int ret = 0;
-    for (int i = 0; i < 4; i++) {
-        // 매개변수로 해야하는건 무조건 지역변수로 하자.
-        int ny = y + dy[i];
-        int nx = x + dx[i];
-        if (ny < 0 || ny >= n || nx < 0 || nx >= m || visited[ny][nx] || a[ny][nx] == 'T')continue;
-        visited[ny][nx] = visited[y][x] + 1;
-        ret += go(ny, nx);
-        visited[ny][nx] = 0;
-    }
-    return ret;
 }
 
 int main() {
     fastIO();
 
-    cin >> n >> m >> k;
-    for (int i = 0; i < n; i++) {
+    cin >> t;
+
+    for (int i = 0; i < t; i++) {
+        cin >> r;
         cin >> s;
-        for (int j = 0; j < m; j++) {
-            a[i][j] = s[j];
+        for (int j = 0; j < s.length(); j++) {
+            repeat(j);
         }
+        cout << "\n";
     }
-    visited[n - 1][0] = 1;
-    cout << go(n - 1, 0) << "\n";
 }

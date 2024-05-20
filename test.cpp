@@ -12,26 +12,12 @@ void fastIO() {
     cout.tie(NULL);
 }
 
-int t, r;
-string s;
-
-void repeat(int j) {
-    for (int i = 0; i < r; i++) {
-        cout << s[j];
-    }
-}
+int a, b;
 
 int main() {
     fastIO();
-
-    cin >> t;
-
-    for (int i = 0; i < t; i++) {
-        cin >> r;
-        cin >> s;
-        for (int j = 0; j < s.length(); j++) {
-            repeat(j);
-        }
-        cout << "\n";
+    // EOF 관련 찾아본 문제..
+    while (cin >> a >> b) {
+        cout << a + b << "\n";
     }
 }

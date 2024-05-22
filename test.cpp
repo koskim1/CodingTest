@@ -12,36 +12,47 @@ void fastIO() {
     cout.tie(NULL);
 }
 
-int alpha[26], cnt;
+int a[26],num,b,c[26];
 string s;
 
-// 아스키코드 : 대문자 A = 65, 소문자 a = 97
 int main() {
     fastIO();
     
+    fill_n(a, 26, -1);
     cin >> s;
-    
-    // 대문자 소문자 둘다 빈도수 체크해서 alpha[0~25]에 넣어둠
-    for (int i = 0; i < s.length(); i++) {
-        if (s[i] < 97) alpha[s[i] - 65]++;
-        else alpha[s[i] - 97]++;
-    }
-
-    int max = 0, max_index = 0;
-
-    // max값이랑(여러개인지 나중에 체크해봐야함), max_index(결과값 출력 위해)
-    for (int i = 0; i < 26; i++) {
-        if (max < alpha[i]) {
-            max = alpha[i];
-            max_index = i;
+    for (int i = 0; i < s.size(); i++) {
+        // s[i] - 'a' 하면 b => 1
+        num = s[i] - 'a';
+        // 이렇게 하면 o가 2번나오면 처음위치가 아닌 다음위치로 됨.
+        // 어떻게하면 처음위치만 할까        
+        if (a[num] == -1) {
+            a[num] = b++;
         }
+        else b++;
+        
     }
-    // 가장 많이 사용된 알파벳이 여러개인가 cnt에 체크
+
+
     for (int i = 0; i < 26; i++) {
-        if (max == alpha[i])cnt++;
+        cout << a[i] << " ";
     }
-    // cnt가 여러개면 ? 출력 아니면 대문자로 출력
-    if (cnt > 1) cout << "?";
-    else cout << (char)(max_index + 65);
+
+    /*
+    string s;
+    string alphabet = "abcdefghijklmnopqrstuvwxyz";
+    cin >> s;
+    for(int i = 0; i < alphabet.length(); i++)
+        cout << (int)s.find(alphabet[i]) << " ";
+    return 0;
+
+    만약 없는 문자열을 찾으려 할 경우에는 string::npos가 반환된다.
+
+    npos의 값은 -1로 정의되어있지만, string::npos의 자료형이 unsigned이므로 2의 보수 개념에 의해 
+    표현할 수 있는 최대 크기의 양수가 출력된다. 
+    이를 방지하기 위해서는 unsigned가 아닌 일반 int형으로 캐스팅을 진행하여 출력하면 된다.
+
+    find를 알았다면 훨씬 쉽게 풀었을 문제였네 머쓱.
+    */
+
 
 }

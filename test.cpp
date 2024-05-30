@@ -12,42 +12,87 @@ void fastIO() {
     cout.tie(NULL);
 }
 
-int n, cnt, sum;
-string s;
+/*
+첫째 줄에 N과 M이 주어진다. N과 M은 8보다 크거나 같고, 50보다 작거나 같은 자연수이다. 
+둘째 줄부터 N개의 줄에는 보드의 각 행의 상태가 주어진다. B는 검은색이며, W는 흰색이다.
+
+전체 돌고 그냥 양옆 위 아래 안맞으면 체인지
+*/
+
+const int dy[4] = { -1,0,1,0 };
+const int dx[4] = { 0,1,0,-1 };
+
+string WB[8] = {
+    "WBWBWBWB",
+    "BWBWBWBW",
+    "WBWBWBWB",
+    "BWBWBWBW",
+    "WBWBWBWB",
+    "BWBWBWBW",
+    "WBWBWBWB",
+    "BWBWBWBW"
+};
+
+string BW[8] = {
+    "BWBWBWBW",
+    "WBWBWBWB",
+    "BWBWBWBW",
+    "WBWBWBWB",
+    "BWBWBWBW",
+    "WBWBWBWB",
+    "BWBWBWBW",
+    "WBWBWBWB"
+};
+
+
+
+int m, n, size[2], cnt, min_val = 12345;
+string board[50];
+pair<int, int> p1;
+
+
+int WB_cnt(int x, int y) {
+    int cnt = 0;
+    for (int i = 0; i < 8; i++) {
+        for (int j = 0; j < 8; j++) {
+            if (board[x + i][y + j] != WB[i][j])
+                cnt++;
+        }
+    }
+    return cnt;
+}
+
+int BW_cnt(int x, int y)
+{
+    int cnt = 0;
+    for (int i = 0; i < 8; i++)
+    {
+        for (int j = 0; j < 8; j++)
+        {
+            if (board[x + i][y + j] != BW[i][j])
+                cnt++;
+        }
+
+    }
+    return cnt;
+}
 
 int main() {
     fastIO();
 
-    cin >> n;
-
-    for (int i = 0; i < n; i++) {
-        cin >> s;
-
-        for (int i = 0; i < s.size(); i++) {
-            // O가 연속하면 +1 더해주는 코드            
-            if (s[i] == 'O') cnt++;
-            else cnt = 0;
-            sum += cnt;
+    cin >> p1.first >> p1.second;
+    for (int i = 0; i < p1.first; i++) {
+        cin >> board[i];
+    }
+    for (int i = 0; i + 8 <= p1.first; i++) {
+        for (int j = 0; j + 8 <= p1.second; j++) {
+            int tmp;
+            tmp = min(WB_cnt(i, j), BW_cnt(i, j));
+            if (tmp < min_val) {
+                min_val = tmp;
+            }
         }
-
-        // 최종값 출력하고 초기화.
-        cout << sum << '\n';
-        sum = 0;
-        cnt = 0;
     }
 
-    /*
-     규칙.
-    1. O가 연속한다면 +1가중치만큼 계속 더해줌
-    2. X를 만나면 가중치 초기화에 더하는거 없음
-    3. 최종 더해진 값 출력.
-     
-     
-    
-    그냥 cnt하나로 다 해결됐다 나 뭐함 ㅋㅋ
-    
-    TC문제니 한TC끝내고 다시 초기화해주는게 중요하다는 기본기를 다시 배워갑니다,,,
-    */
-
-
+    cout << min_val;
 }

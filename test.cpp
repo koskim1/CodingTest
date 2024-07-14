@@ -80,11 +80,18 @@ int BW_cnt(int x, int y)
 int main() {
     fastIO();
 
-    // 최하위 켜져있는 비트 찾기
-    // ~S = -(S+1)
-    // -S = ~S + 1
+    // idx번째 비트가 켜져있는지 확인하기    
     int S = 18; // 10010
-    int idx;   
-    idx = (-S & S);
-    cout << idx << '\n';
+    int idx = 4;
+    if (S & (1 << idx)) {
+        cout << "해당 idx : " << idx << "가 켜져있습니다.\n";
+    }
+    else {
+        cout << "해당 idx : " << idx << "가 꺼져있습니다.\n";
+    }
+
+    /*
+    * 출력
+    해당 idx : 4가 켜져있습니다.
+    */
 }

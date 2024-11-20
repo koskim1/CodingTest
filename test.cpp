@@ -25,5 +25,10 @@ int main() {
     func(v);
     cout << v[10] << "\n";
     
+
+    string s;
+    // 그냥 cin으로 하면 띄어쓰기 순간 씹힘. 그래서 getline으로
+    getline(cin, s);
+    cout << s;
     
 }

@@ -12,28 +12,36 @@ void fastIO() {
     cout.tie(NULL);
 }
 
-/*
-연결리스트 
-*/
-int n, k;
-queue<int> q;
+int n[100004], m[100004];
+int k,k2;
+
+int BSearch(int arr[], int target, int low, int high) {
+    if (low > high)
+        return 0;
+
+    int mid = (low + high) / 2;
+    if (arr[mid] == target) {
+        return 1;
+    }        
+    else if (arr[mid] > target)
+        return BSearch(arr, target, low, mid - 1);
+    else
+        return BSearch(arr, target, mid + 1, high);
+}
 
 int main() {
     fastIO();
-  
-    cin >> n >> k;        
-    for (int i = 1; i <= n; i++) {
-        q.push(i);
+    
+    cin >> k;
+    for (int i = 0; i < k; i++) {
+        cin >> n[i];
     }
-    cout << '<';
-    while (!q.empty()) {
-        for (int i = 0; i < k - 1; i++) {
-            q.push(q.front());
-            q.pop();
-        }
-        cout << q.front();
-        q.pop();
-        if (!q.empty()) cout << ", ";
+    sort(n, n + k);
+
+    cin >> k2;
+    for (int i = 0; i < k2; i++) {
+        cin >> m[i];   
+        // k-1인 이유는 인덱스 위주로 봐야해서 그렇구만
+        cout << BSearch(n, m[i], 0, k - 1) << '\n';
     }
-    cout << '>';
 }

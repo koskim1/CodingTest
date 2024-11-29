@@ -13,30 +13,42 @@ void fastIO() {
 }
 
 
-int TC,k,k2;
-
+int n;
+vector<int> num;
+stack<int> stk;
 int main() {
     fastIO();
     
-    cin >> TC;
+    cin >> n;
+    num.resize(n);
 
-    while (TC--) {
-        int res = 0;
-        cin >> k >> k2;
-        vector<int> n(k), m(k2);
-        for (int i = 0; i < k; i++) {
-            cin >> n[i];
-        }
-        for (int i = 0; i < k2; i++) {
-            cin >> m[i];
+    for (int i = 0; i < n; i++) {
+        cin >> num[i];
+    }
+
+    vector<string> operation;
+    int current = 1;
+
+    for (int i = 0; i < n; i++) {
+        int  target = num[i];
+
+        while (current <= target) {
+            stk.push(current);
+            operation.push_back("+");
+            current++;
         }
 
-        sort(m.begin(), m.end());
-       
-        for (int i = 0; i < k; i++) {
-            res += lower_bound(m.begin(), m.end(), n[i]) - m.begin();
+        if (!stk.empty() && stk.top() == target) {
+            stk.pop();
+            operation.push_back("-");
         }
+        else {
+            cout << "NO";
+            return 0;
+        }
+    }
 
-        cout << res << '\n';
+    for (const string &var : operation) {
+        cout << var << '\n';
     }
 }

@@ -12,43 +12,32 @@ void fastIO() {
     cout.tie(NULL);
 }
 
+int n, num;
 
-int n;
-vector<int> num;
-stack<int> stk;
 int main() {
     fastIO();
     
+    stack<pair<int, int>> stk; // { 탑의 높이, 탑의 인덱스 }
+
     cin >> n;
-    num.resize(n);
+    vector<int> v(n, 0);//사이즈 n만큼 0으로 채워둬. 이따가 안부딪히는거(앞쪽)는 0으로 하면 되고 나머진 덮으면 되니껜
 
     for (int i = 0; i < n; i++) {
-        cin >> num[i];
-    }
+        cin >> num;
 
-    vector<string> operation;
-    int current = 1;
-
-    for (int i = 0; i < n; i++) {
-        int  target = num[i];
-
-        while (current <= target) {
-            stk.push(current);
-            operation.push_back("+");
-            current++;
-        }
-
-        if (!stk.empty() && stk.top() == target) {
+        while (!stk.empty() && stk.top().first <= num) {
             stk.pop();
-            operation.push_back("-");
         }
-        else {
-            cout << "NO";
-            return 0;
+
+        if (!stk.empty()) {
+            v[i] = stk.top().second + 1; // 몇번째에 있었는지
         }
+
+        stk.push({ num, i });
     }
 
-    for (const string &var : operation) {
-        cout << var << '\n';
+    for (int i = 0; i < n; i++) {
+        cout << v[i] << " ";
     }
+
 }

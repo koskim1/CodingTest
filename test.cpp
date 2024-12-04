@@ -13,23 +13,42 @@ void fastIO() {
 }
 
 int n;
-queue<int> q;
+deque<int> dq;
 int main() {
     fastIO();
 
     cin >> n;
-
-    for (int i = 1; i <= n; i++) {
-        q.push(i);
+    for (int i = 0; i < n; i++) {
+        string s;
+        int num;
+        cin >> s;
+        if (s == "push_front") {
+            cin >> num;
+            dq.push_front(num);
+        }
+        else if (s == "push_back") {
+            cin >> num;
+            dq.push_back(num);
+        }
+        else if (s == "pop_front" && !dq.empty()) {
+            cout << dq.front() << "\n";
+            dq.pop_front();
+        }
+        else if (s == "pop_back" && !dq.empty()) {
+            cout << dq.back() << "\n";
+            dq.pop_back();
+        }
+        else if (s == "size") cout << dq.size() << "\n";
+        else if (s == "empty") {
+            if (dq.empty()) cout << "1" << "\n";
+            else cout << "0" << "\n";
+        }
+        else if (s == "front" && !dq.empty()) {
+            cout << dq.front() << "\n";
+        }
+        else if (s == "back" && !dq.empty()) {
+            cout << dq.back() << "\n";
+        }
+        else cout << "-1" << "\n";   
     }
-
-    while (n != 1) {
-        q.pop();
-        if (q.size() == 1) break;
-        // 맨 위에있는 카드 맨 밑으로
-        int temp = q.front();
-        q.pop();
-        q.push(temp);
-    }
-    cout << q.front();
 }

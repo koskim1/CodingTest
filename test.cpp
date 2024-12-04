@@ -12,43 +12,46 @@ void fastIO() {
     cout.tie(NULL);
 }
 
-int n;
+int n, m, x, res;
 deque<int> dq;
 int main() {
     fastIO();
 
-    cin >> n;
-    for (int i = 0; i < n; i++) {
-        string s;
-        int num;
-        cin >> s;
-        if (s == "push_front") {
-            cin >> num;
-            dq.push_front(num);
-        }
-        else if (s == "push_back") {
-            cin >> num;
-            dq.push_back(num);
-        }
-        else if (s == "pop_front" && !dq.empty()) {
-            cout << dq.front() << "\n";
-            dq.pop_front();
-        }
-        else if (s == "pop_back" && !dq.empty()) {
-            cout << dq.back() << "\n";
-            dq.pop_back();
-        }
-        else if (s == "size") cout << dq.size() << "\n";
-        else if (s == "empty") {
-            if (dq.empty()) cout << "1" << "\n";
-            else cout << "0" << "\n";
-        }
-        else if (s == "front" && !dq.empty()) {
-            cout << dq.front() << "\n";
-        }
-        else if (s == "back" && !dq.empty()) {
-            cout << dq.back() << "\n";
-        }
-        else cout << "-1" << "\n";   
+    int idx; // 삭제할 원소가 있는 인덱스
+
+    cin >> n >> m;
+    for (int i = 1; i <= n; i++) {
+        dq.push_back(i);
     }
+
+    while (m--) {
+        cin >> x;
+
+        auto it = find(dq.begin(), dq.end(), x);
+        idx = distance(dq.begin(), it);
+
+        if (idx <= dq.size() / 2) {
+            while (1) {
+                if (dq.front() == x) {
+                    dq.pop_front();
+                    break;
+                }
+                res++;
+                dq.push_back(dq.front());
+                dq.pop_front();
+            }
+        }
+        else {
+            while (1) {
+                if (dq.front() == x) {
+                    dq.pop_front();
+                    break;
+                }
+                res++;
+                dq.push_front(dq.back());
+                dq.pop_back();
+            }
+        }
+    }
+    cout << res;
 }

@@ -12,46 +12,31 @@ void fastIO() {
     cout.tie(NULL);
 }
 
-int n, m, x, res;
-deque<int> dq;
+
 int main() {
     fastIO();
 
-    int idx; // 삭제할 원소가 있는 인덱스
+    string s;
+    int len = 0;
+    cin >> s;
+    stack<char> stk;
 
-    cin >> n >> m;
-    for (int i = 1; i <= n; i++) {
-        dq.push_back(i);
-    }
-
-    while (m--) {
-        cin >> x;
-
-        auto it = find(dq.begin(), dq.end(), x);
-        idx = distance(dq.begin(), it);
-
-        if (idx <= dq.size() / 2) {
-            while (1) {
-                if (dq.front() == x) {
-                    dq.pop_front();
-                    break;
-                }
-                res++;
-                dq.push_back(dq.front());
-                dq.pop_front();
-            }
+    for (int i = 0; i < s.length(); i++) {
+        if (s[i] == '(') {
+            stk.push('(');
         }
         else {
-            while (1) {
-                if (dq.front() == x) {
-                    dq.pop_front();
-                    break;
-                }
-                res++;
-                dq.push_front(dq.back());
-                dq.pop_back();
+            stk.pop();
+            // 레이저일 경우            
+            if (s[i-1] == '(') {
+                len += stk.size();
             }
+            // 막대기의 끝일 경우
+            else
+                len += 1;
+            
         }
     }
-    cout << res;
+
+    cout << len;
 }

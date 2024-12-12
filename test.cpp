@@ -11,57 +11,50 @@ void fastIO() {
     cin.tie(NULL);
     cout.tie(NULL);
 }
-/*
-()는 2
-[]는 3
 
-(x) 는 2x(x)값 => (()) => 2 * 2  = 4 ((())) => 2*2*2 = 8
-연속적이냐에 따라
-(는 a 초기값 1로. 연속적이면 ++해주고 아니면 다시 1로 초기화.
-[는 b해서 
-*/
-string s;
-stack<char> stk;
+const int dy[4] = { -1,0,1,0 };
+const int dx[4] = { 0,1,0,-1 };
+
+int board[502][502];
+bool vis[502][502];
+int n, m;
 
 int main() {
     fastIO();
 
-    int sum = 0; // 누적해서 더해질 값
-    int num = 1; // 곱해질 값
-
-    cin >> s;
-
-    for (int i = 0; i < s.length(); i++) {
-
-        if (s[i] == '(') {
-            num *= 2;
-            stk.push(s[i]);
+    cin >> n >> m;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            cin >> board[i][j];
         }
-        else if (s[i] == '[') {
-            num *= 3;
-            stk.push(s[i]);
-        }
-        else if (s[i] == ')') {
-            if (stk.empty() || stk.top() != '(') {
-                cout << 0;
-                return 0;
+    }
+
+    int mx = 0; // 그림의 최대값
+    int num = 0; // 그림의 개수
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            if (board[i][j] == 0 || vis[i][j]) continue;
+            num++;
+            queue<pair<int, int>> q;
+            vis[i][j] = true;
+            q.push({ i,j });
+            int area = 0;
+
+            while (!q.empty()) {
+                area++;
+                pair<int, int> cur = q.front(); q.pop();
+                for (int dir = 0; dir < 4; dir++) {
+                    int ny = cur.first + dy[dir];
+                    int nx = cur.second + dx[dir];
+                    if (ny < 0 || ny >= n || nx < 0 || nx >= m)continue;
+                    if (vis[ny][nx] || board[ny][nx] != 1) continue;
+                    vis[ny][nx] = 1;
+                    q.push({ ny,nx });
+                }
             }
-            if (s[i - 1] == '(') sum += num;
-            stk.pop();
-            num /= 2; // 소괄호 쌍이 사라졌으니 2로나눔
+            mx = max(mx, area);
         }
-        else {
-            if (stk.empty() || stk.top() != '[') {
-                cout << 0;
-                return 0;
-            }
-            if (s[i - 1] == '[') sum += num;
-            stk.pop();
-            num /= 3;
-        }
-    }  
-    
-    if (stk.empty()) cout << sum;
-    else cout << 0;
-
+    }
+    cout << num << '\n' << mx;
 }

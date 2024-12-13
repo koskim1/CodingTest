@@ -1,4 +1,4 @@
-﻿#pragma warning(disable:4996)
+﻿//#pragma warning(disable:4996)
 #include <bits/stdc++.h>
 using namespace std;
 #define prev aaa
@@ -7,54 +7,57 @@ using namespace std;
 const int INF = 987654321;
 
 void fastIO() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
 }
 
 const int dy[4] = { -1,0,1,0 };
-const int dx[4] = { 0,1,0,-1 };
+//const int dx[4] = { 0,1,0,-1 };
 
-int board[502][502];
-bool vis[502][502];
-int n, m;
+#define MAX 1000004
+
+int f, s, g, u, d;
+int dx[2];
+int visited[MAX];
+bool flag = true;
+
+void bfs() {
+	queue<int> q;
+	q.push(s);
+	visited[s] = 1;
+
+	while (!q.empty()) {
+		s = q.front(); q.pop();
+
+		for (int i = 0; i < 2; i++) {
+			int nx = s + dx[i];
+
+			if (nx > 0 && nx <= f) {
+				if (visited[nx] == 0) {
+					visited[nx] = visited[s] + 1;
+					q.push(nx);
+				}
+			}
+
+			if (s == g) {
+				flag = false;
+				break;
+			}
+		}
+	}
+}
 
 int main() {
-    fastIO();
+	fastIO();
 
-    cin >> n >> m;
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < m; j++) {
-            cin >> board[i][j];
-        }
-    }
+	cin >> f >> s >> g >> u >> d;
+	dx[0] = u;
+	dx[1] = -d;
 
-    int mx = 0; // 그림의 최대값
-    int num = 0; // 그림의 개수
+	bfs();
 
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < m; j++) {
-            if (board[i][j] == 0 || vis[i][j]) continue;
-            num++;
-            queue<pair<int, int>> q;
-            vis[i][j] = true;
-            q.push({ i,j });
-            int area = 0;
+	if (flag) cout << "use the stairs";
+	else cout << visited[g] - 1;
 
-            while (!q.empty()) {
-                area++;
-                pair<int, int> cur = q.front(); q.pop();
-                for (int dir = 0; dir < 4; dir++) {
-                    int ny = cur.first + dy[dir];
-                    int nx = cur.second + dx[dir];
-                    if (ny < 0 || ny >= n || nx < 0 || nx >= m)continue;
-                    if (vis[ny][nx] || board[ny][nx] != 1) continue;
-                    vis[ny][nx] = 1;
-                    q.push({ ny,nx });
-                }
-            }
-            mx = max(mx, area);
-        }
-    }
-    cout << num << '\n' << mx;
 }

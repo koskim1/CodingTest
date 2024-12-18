@@ -13,23 +13,21 @@ void fastIO() {
 	cout.tie(NULL);
 }
 
-void func(int a, int b, int n) {
-	if (n == 1) {
-		cout << a << ' ' << b << "\n";
-		return;
-	}
+int func(int n, int r, int c) {
+	if (n == 0) return 0;
+	int half = 1 << (n - 1);
 
-	func(a, 6 - a - b, n - 1);
-	cout << a << ' ' << b << "\n";
-	func(6 - a - b, b, n - 1);
+	if (r < half && c < half) return func(n - 1, r, c);
+	if (r < half && c >= half) return half * half+ func(n - 1, r, c - half);
+	if (r >= half && c < half)return 2 * half * half + func(n - 1, r - half, c);
+	if (r >= half && c >= half) return 3 * half * half + func(n - 1, r - half, c - half);	
 }
 
 
 int main() {
 	fastIO();
 
-	int k;
-	cin >> k;
-	cout << (1 << k) - 1 << "\n";
-	func(1, 3, k);
+	int n, r, c;
+	cin >> n >> r >> c;
+	cout << func(n, r, c);
 }

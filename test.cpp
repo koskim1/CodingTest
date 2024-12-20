@@ -13,21 +13,48 @@ void fastIO() {
 	cout.tie(NULL);
 }
 
-int func(int n, int r, int c) {
-	if (n == 0) return 0;
-	int half = 1 << (n - 1);
+int n, white, blue;
+int board[130][130];
 
-	if (r < half && c < half) return func(n - 1, r, c);
-	if (r < half && c >= half) return half * half+ func(n - 1, r, c - half);
-	if (r >= half && c < half)return 2 * half * half + func(n - 1, r - half, c);
-	if (r >= half && c >= half) return 3 * half * half + func(n - 1, r - half, c - half);	
+
+bool isUniform(int y, int x, int size) {
+	int color = board[y][x];
+	for (int i = y; i < y + size; i++) {
+		for (int j = x; j < x + size; j++) {
+			if (board[i][j] != color) return false;
+		}
+	}
+	return true;
 }
 
+// 함수 정의
+void func(int y, int x, int size){
+	// base condition
+	// 탐색중인 영역이 모두 같은색인가?
+	if (isUniform(y, x, size)) {
+		if (board[y][x] == 0) white++;
+		else blue++;
+		return;
+	}
+
+	int half = size / 2;
+	// 재귀식
+	func(y, x, half);
+	func(y, x + half, half);
+	func(y + half, x, half);
+	func(y + half, x + half, half);
+}
 
 int main() {
 	fastIO();
 
-	int n, r, c;
-	cin >> n >> r >> c;
-	cout << func(n, r, c);
+	cin >> n;
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			cin >> board[i][j];
+		}
+	}
+	
+	func(0,0,n);
+	cout << white << "\n" << blue << "\n";
 }

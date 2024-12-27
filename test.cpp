@@ -13,48 +13,38 @@ void fastIO() {
 	cout.tie(NULL);
 }
 
-int n, white, blue;
-int board[130][130];
+int n, cnt;
 
+bool isUsed1[40];
+bool isUsed2[40];
+bool isUsed3[40];
 
-bool isUniform(int y, int x, int size) {
-	int color = board[y][x];
-	for (int i = y; i < y + size; i++) {
-		for (int j = x; j < x + size; j++) {
-			if (board[i][j] != color) return false;
-		}
-	}
-	return true;
-}
-
-// 함수 정의
-void func(int y, int x, int size){
-	// base condition
-	// 탐색중인 영역이 모두 같은색인가?
-	if (isUniform(y, x, size)) {
-		if (board[y][x] == 0) white++;
-		else blue++;
+void func(int cur) {
+	if (cur == n) {
+		cnt++;
 		return;
 	}
 
-	int half = size / 2;
-	// 재귀식
-	func(y, x, half);
-	func(y, x + half, half);
-	func(y + half, x, half);
-	func(y + half, x + half, half);
+	for (int i = 0; i < n; i++) {
+		if (isUsed1[i] || isUsed2[i + cur] || isUsed3[cur - i + n - 1]) continue;
+
+		isUsed1[i] = true; //세로
+		isUsed2[i + cur] = true; //대각 왼아래에서 오른위로 올라가는 대각선
+		isUsed3[cur - i + n - 1] = true; // 대각 왼위에서 오른아래로 내려가는 대각선
+		func(cur + 1);
+		isUsed1[i] = false;
+		isUsed2[i + cur] = false;
+		isUsed3[cur - i + n - 1] = false;
+	}
 }
 
 int main() {
 	fastIO();
 
 	cin >> n;
-	for (int i = 0; i < n; i++) {
-		for (int j = 0; j < n; j++) {
-			cin >> board[i][j];
-		}
-	}
-	
-	func(0,0,n);
-	cout << white << "\n" << blue << "\n";
+	func(0);
+
+	cout << cnt;
+
+
 }

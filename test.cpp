@@ -13,38 +13,92 @@ void fastIO() {
 	cout.tie(NULL);
 }
 
-int n, cnt;
+int n, m,result=INF;
+int board1[10][10];
+int board2[10][10];
 
-bool isUsed1[40];
-bool isUsed2[40];
-bool isUsed3[40];
+vector<pair<int, int>> cctv;
 
-void func(int cur) {
-	if (cur == n) {
-		cnt++;
+const int dy[4] = { -1,0,1,0 };
+const int dx[4] = { 0,1,0,-1 };
+
+bool OOB(int a, int b) {
+	return a < 0 || a >= n || b < 0 || b >= m;
+}
+
+void upd(int y, int x, int dir) {
+	dir %= 4;
+	while (true) {
+		y += dy[dir];
+		x += dx[dir];
+		if (OOB(y, x) || board2[y][x] == 6) return;
+		if (board2[y][x] != 0) continue;
+		board2[y][x] = 7;
+	}
+}
+
+void dfs(int idx) {
+	if (idx == cctv.size()) { // 모든 CCTV를 처리한 경우
+		int val = 0;
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < m; j++) {
+				if (board2[i][j] == 0) val++; // 사각지대 카운트
+			}
+		}
+		result = min(result, val); // 최솟값 갱신
 		return;
 	}
 
-	for (int i = 0; i < n; i++) {
-		if (isUsed1[i] || isUsed2[i + cur] || isUsed3[cur - i + n - 1]) continue;
+	int backup[10][10]; // 현재 상태 백업
+	memcpy(backup, board2, sizeof(board2));
 
-		isUsed1[i] = true; //세로
-		isUsed2[i + cur] = true; //대각 왼아래에서 오른위로 올라가는 대각선
-		isUsed3[cur - i + n - 1] = true; // 대각 왼위에서 오른아래로 내려가는 대각선
-		func(cur + 1);
-		isUsed1[i] = false;
-		isUsed2[i + cur] = false;
-		isUsed3[cur - i + n - 1] = false;
+	int y = cctv[idx].first;
+	int x = cctv[idx].second;
+	int type = board1[y][x];
+
+	for (int dir = 0; dir < 4; dir++) {
+		memcpy(board2, backup, sizeof(backup)); // 복구
+		if (type == 1) {
+			upd(y, x, dir);
+		}
+		else if (type == 2) {
+			upd(y, x, dir);
+			upd(y, x, dir + 2);
+		}
+		else if (type == 3) {
+			upd(y, x, dir);
+			upd(y, x, dir + 1);
+		}
+		else if (type == 4) {
+			upd(y, x, dir);
+			upd(y, x, dir + 1);
+			upd(y, x, dir + 2);
+		}
+		else if (type == 5) {
+			upd(y, x, dir);
+			upd(y, x, dir + 1);
+			upd(y, x, dir + 2);
+			upd(y, x, dir + 3);
+		}
+		dfs(idx + 1);
 	}
 }
+
 
 int main() {
 	fastIO();
 
-	cin >> n;
-	func(0);
+	cin >> n >> m;
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < m; j++) {
+			cin >> board1[i][j];
+			if (board1[i][j] != 0 && board1[i][j] != 6) {
+				cctv.push_back({ i, j });
+			}
+		}
+	}
 
-	cout << cnt;
-
-
+	memcpy(board2, board1, sizeof(board1));
+	dfs(0); // 백트래킹 시작
+	cout << result << "\n";
 }

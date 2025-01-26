@@ -13,92 +13,37 @@ void fastIO() {
 	cout.tie(NULL);
 }
 
-int n, m,result=INF;
-int board1[10][10];
-int board2[10][10];
+/*
+1.테이블 정의하기
+D[i] = i를 1,2,3의 합으로 나타내는 방법의 수
+2.점화식 세우기
+D[i] = D[i-1] + D[i-2] + D[i-3]
 
-vector<pair<int, int>> cctv;
+3.초기값 설정하기
+D[1] = 1, D[2] = 2, D[3] = 4
 
-const int dy[4] = { -1,0,1,0 };
-const int dx[4] = { 0,1,0,-1 };
+4.점화식을 이용해 문제 풀기
+*/
 
-bool OOB(int a, int b) {
-	return a < 0 || a >= n || b < 0 || b >= m;
-}
-
-void upd(int y, int x, int dir) {
-	dir %= 4;
-	while (true) {
-		y += dy[dir];
-		x += dx[dir];
-		if (OOB(y, x) || board2[y][x] == 6) return;
-		if (board2[y][x] != 0) continue;
-		board2[y][x] = 7;
-	}
-}
-
-void dfs(int idx) {
-	if (idx == cctv.size()) { // 모든 CCTV를 처리한 경우
-		int val = 0;
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < m; j++) {
-				if (board2[i][j] == 0) val++; // 사각지대 카운트
-			}
-		}
-		result = min(result, val); // 최솟값 갱신
-		return;
-	}
-
-	int backup[10][10]; // 현재 상태 백업
-	memcpy(backup, board2, sizeof(board2));
-
-	int y = cctv[idx].first;
-	int x = cctv[idx].second;
-	int type = board1[y][x];
-
-	for (int dir = 0; dir < 4; dir++) {
-		memcpy(board2, backup, sizeof(backup)); // 복구
-		if (type == 1) {
-			upd(y, x, dir);
-		}
-		else if (type == 2) {
-			upd(y, x, dir);
-			upd(y, x, dir + 2);
-		}
-		else if (type == 3) {
-			upd(y, x, dir);
-			upd(y, x, dir + 1);
-		}
-		else if (type == 4) {
-			upd(y, x, dir);
-			upd(y, x, dir + 1);
-			upd(y, x, dir + 2);
-		}
-		else if (type == 5) {
-			upd(y, x, dir);
-			upd(y, x, dir + 1);
-			upd(y, x, dir + 2);
-			upd(y, x, dir + 3);
-		}
-		dfs(idx + 1);
-	}
-}
-
+int d[20];
 
 int main() {
 	fastIO();
 
-	cin >> n >> m;
-	for (int i = 0; i < n; i++) {
-		for (int j = 0; j < m; j++) {
-			cin >> board1[i][j];
-			if (board1[i][j] != 0 && board1[i][j] != 6) {
-				cctv.push_back({ i, j });
-			}
-		}
+	d[1] = 1;
+	d[2] = 2;
+	d[3] = 4;
+
+	for (int i = 4; i < 11; i++) {
+		d[i] = d[i - 1] + d[i - 2] + d[i - 3];
 	}
 
-	memcpy(board2, board1, sizeof(board1));
-	dfs(0); // 백트래킹 시작
-	cout << result << "\n";
+	int t;
+	cin >> t;
+	while (t--) {
+		int n;
+		cin >> n;
+		cout << d[n] << '\n';
+	}
+
 }

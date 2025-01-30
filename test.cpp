@@ -15,44 +15,37 @@ void fastIO() {
 
 /*
 1.테이블 정의하기
-D[i][j] = 현재까지 j개의 계단을 연속해서 밟고 i번째 계단까지 올라섰을 때
-점수 합의 최댓값, 단 i번째 계단은 꼭 밟아야 한다.
 
 2.점화식 세우기
-D[k][1] = max(D[k-2][1], D[k-2][2]) + S[k]
-D[k][2] = D[k-1][1] + S[k]
 
 3.초기값 설정하기
-D[1][1] = S[1];
-D[1][2] = 0;
-D[2][1] = S[2];
-D[2][2] = S[1] + S[2];
 
 4.점화식을 이용해 문제 풀기
 */
 
-int s[305];
 int n;
-int d[305][3];
 
 int main() {
 	fastIO();
 
 	cin >> n;
-	for (int i = 1; i <= n; i++) cin >> s[i];
-	if (n == 1) {
-		cout << s[1];
-		return 0;
-	}
-	d[1][1] = s[1];
-	d[1][2] = 0;
-	d[2][1] = s[2];
-	d[2][2] = s[1] + s[2];
+	vector<vector<int>> costs(n, vector<int>(3));
 
-	for (int i = 3; i <= n; i++) {
-		d[i][1] = max(d[i - 2][1], d[i - 2][2]) + s[i];
-		d[i][2] = d[i - 1][1] + s[i];
+	for (int i = 0; i < n; ++i) {
+		cin >> costs[i][0] >> costs[i][1] >> costs[i][2];
 	}
 
-	cout << max(d[n][1], d[n][2]);
+	vector<vector<int>> dp(n, vector<int>(3));
+	dp[0][0] = costs[0][0];
+	dp[0][1] = costs[0][1];
+	dp[0][2] = costs[0][2];
+
+	for (int i = 1; i < n; ++i) {
+		dp[i][0] = min(dp[i - 1][1], dp[i - 1][2]) + costs[i][0];	// R로 칠하는경우
+		dp[i][1] = min(dp[i - 1][0], dp[i - 1][2]) + costs[i][1];	// G로 칠하는경우
+		dp[i][2] = min(dp[i - 1][0], dp[i - 1][1]) + costs[i][2];	// B로 칠하는경우
+	}
+
+	int result = min({ dp[n - 1][0], dp[n - 1][1], dp[n - 1][2] });
+	cout << result << '\n';
 }

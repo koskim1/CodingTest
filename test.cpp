@@ -14,36 +14,38 @@ void fastIO() {
 }
 
 /*
+문제
+수 N개가 주어졌을 때, i번째 수부터 j번째 수까지 합을 구하는 프로그램을 작성하시오.
+
 1.테이블 정의하기
-dp[i] = 2×i 크기의 직사각형을 채우는 방법의 수
+dp[i] = i번째 수까지의 합
 
 2.점화식 세우기
-피보나치 수열?
-f(n) = f(n-1) + f(n-2)
 
-점화식: dp[i] = dp[i-1] + dp[i-2]
+점화식: dp[i] = dp[i-1] + arr[i];
 
 3.초기값 설정하기
-f(1) = 1
-f(2) = 2
-
-dp[1] = 1
-dp[2] = 2
+dp[i] = dp[i-1] + arr[i]; (i=1)
 
 4.점화식을 이용해 문제 풀기
 */
 
-int dp[10005];
-int mod = 10007;
+int n, m, total;
+int arr[100004];
+int dp[100004];
 
 int main() {
 	fastIO();
 
-	int n;
-	cin >> n;
-	dp[1] = 1;
-	dp[2] = 2;
-	for (int i = 3; i <= n; i++) dp[i] = (dp[i - 1] + dp[i - 2]) % mod;
-	cout << dp[n];
+	cin >> n >> m;
+	for (int i = 1; i <= n; i++) {
+		cin >> arr[i];
+		dp[i] = dp[i-1] + arr[i];		
+	}
 
+	while (m--) {
+		int a, b;
+		cin >> a >> b;
+		cout << dp[b] - dp[a - 1] << "\n";
+	}
 }
